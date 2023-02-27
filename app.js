@@ -12,7 +12,7 @@ const indexRouter = require('./routes/index.js')
 
 app.use(express.json())
 // 라우터 미들웨어
-app.use('/', [indexRouter, postsRouter, commentsRouter])
+app.use( [indexRouter, postsRouter, commentsRouter])
 
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`)

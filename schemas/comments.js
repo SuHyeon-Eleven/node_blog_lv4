@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 
 const commentsSchema = new mongoose.Schema({
+    commentId: {
+        type: mongoose.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+        unique: true,
+        require: true
+    },
     postId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: true
+        ref: 'Posts'
     },
     user: {
         type: String,
@@ -14,6 +20,8 @@ const commentsSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, {
+    _id: false,
+},)
 
-module.exports = mongoose.model('Comments',commentsSchema)
+module.exports = mongoose.model('Comments', commentsSchema)

@@ -1,6 +1,12 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose');
 
-const postsSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
+    postId: {
+        type: mongoose.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+        unique: true,
+        require: true
+    },
     user: {
         type: String,
         required: true,
@@ -15,11 +21,11 @@ const postsSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
     },
     content: {
         type: String,
-    }
-})
+    },
+});
 
-module.exports = mongoose.model('Posts', postsSchema)
+module.exports = mongoose.model('Post', postSchema);

@@ -19,9 +19,15 @@ const commentsSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    content: {
+        type: String,
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
     }
-}, {
-    _id: false,
-},)
+})
 
 module.exports = mongoose.model('Comments', commentsSchema)

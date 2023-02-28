@@ -1,18 +1,17 @@
 const express = require('express')
+const {  mongoose } = require('mongoose')
 const router = express.Router()
 const Posts = require('../schemas/post.js')
+const ObjectId = mongoose.Types.ObjectId
 
-router.get('/posts', async (req, res) => {
-
+// 전체 게시글 조회
+router.get('/', async (req, res) => {
     const postsAll = await Posts.find({}).select('postId user title createdAt -_id').sort('-createdAt')
 
-    console.log(postsAll)
-
-
-    // res.send("post get")
     res.status(200).json({ data: postsAll })
 })
 
+// 게시글 작성
 router.post('/posts', async (req, res) => {
     const { user, password, title, content } = req.body
 
@@ -29,11 +28,57 @@ router.post('/posts', async (req, res) => {
     res.status(201).json({ message: "게시글을 생성하였습니다" })
 })
 
-router.get('/posts/:postId', async (req, res) => {
+// 게시글 상세조회
+router.get('/:postId', async (req, res) => {
     const { postId } = req.params
-    console.log(postId)
+    if(postId.length !== 24 ){
+        return res.status(400).json({message:'데이터 형식이 올바르지 않습니다.'})
+    }
     const post = await Posts.findOne({ postId }).select('postId user title content createdAt -_id')
 
     res.status(200).json({ data: post })
+})
+
+// 게시글 수정
+router.put('/:postId', async (req, res) => {
+    const  postId  = req.params.postId
+    console.log(typeof(postId),postId)
+    const { password, title, content } = req.body  
+    console.log(password, title, content)
+    if(postId.length !== 24){
+        return res.status(400).json({message:'데이터 형식이 올바르지 않습니다.'})
+    }
+    const post = await Posts.findOne({ postId  })
+    console.log('post',post)
+
+    if (post != null) {  
+        if (post.password !== password) {
+            return res.status(400).json({message :"데이터 형식이 올바르지 않습니다."})
+        }
+        await Posts.updateOne({postId:postId},{ $set:{title: title, content: content} })
+        return res.status(200).json({ message:"게시글을 수정하였습니다." }) 
+    }
+    res.status(404).json({ message: '게시글 조회에 실패하였습니다.' })
+})
+
+router.delete('/:postId', async (req,res)=>{
+    const postId = req.params.postId
+    const {password} = req.body
+
+    if(postId.length !== 24){
+        return res.status(400).json({message:'데이터 형식이 올바르지 않습니다.'})
+    }
+
+    const post = await Posts.findOne({postId})
+    if(post != null){
+        if(post.password !== password){
+            return res.status(400).json({message:'데이터 형식이 올바르지 않습니다.'})
+        }
+        await Posts.deleteOne({postId})
+        return res.status(200).json({message:'게시글을 삭제하였습니다.'})
+    }
+
+    res.status(400).json({message:'게시글 조회에 실패하였습니다.'})
+
 })
 module.exports = router

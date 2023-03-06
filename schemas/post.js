@@ -7,18 +7,25 @@ const postSchema = new mongoose.Schema({
         unique: true,
         require: true
     },
-    user: {
+    userId: {
+        type: mongoose.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+        require: true
+    },
+    nickname: {
         type: String,
         required: true,
-    },
-    password: {
-        type: String,
     },
     title: {
         type: String,
         required: true,
     },
     createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+    },
+    updatedAt: {
         type: Date,
         required: true,
         default: Date.now,

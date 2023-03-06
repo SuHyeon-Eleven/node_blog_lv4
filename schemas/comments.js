@@ -12,18 +12,24 @@ const commentsSchema = new mongoose.Schema({
         required: true,
         ref: 'Posts'
     },
-    user: {
+    userId: {
         type: String,
-        retuired: true
+        retuired: true,
+        ref: 'Users'
     },
-    password: {
+    nickname: {
         type: String,
         required: true
     },
-    content: {
+    comment: {
         type: String,
     },
     createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+    },
+    updatedAt: {
         type: Date,
         required: true,
         default: Date.now,

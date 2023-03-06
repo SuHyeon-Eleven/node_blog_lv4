@@ -61,11 +61,12 @@ router.post('/login', async (req, res) => {
                 errorMessage: "닉네임 또는 패스워드를 확인해주세요."
             })
         }
-        const token = jwt.sign({ nickname }, 'token-key')
+        const token = jwt.sign({ nickname }, process.env.Token_key)
         res.cookie("Authorization", `Bearer ${token}`)
         res.status(200).json({ token })
 
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             errorMessage: "로그인에 실패하였습니다."
         })

@@ -8,7 +8,6 @@ const authMiddleware = require('../middlewares/auth-middleware')
 router.get('/', async (req, res) => {
     try {
         const postsAll = await Posts.find({}).select('postId userId nickname title createdAt updatedAt -_id').sort('-createdAt')
-
         res.status(200).json({ posts: postsAll })
     } catch (err) {
         console.log(err)

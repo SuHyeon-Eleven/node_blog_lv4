@@ -36,7 +36,7 @@ module.exports = async (req, res, next) => {
 
     // jwt 검증
     try {
-        const { nickname } = jwt.verify(authToken, 'token-key')
+        const { nickname } = jwt.verify(authToken, process.env.Token_key)
         const user = await User.findOne({nickname})
         res.locals.user = user
 

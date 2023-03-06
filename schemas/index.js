@@ -3,7 +3,7 @@ mongoose.set('strictQuery', true);
 
 const connect = () => {
     mongoose
-        .connect("mongodb://127.0.0.1:27017/node_blog_basic")
+        .connect(process.env.DB_URL)
         .catch(err => console.log(err));
 };
 

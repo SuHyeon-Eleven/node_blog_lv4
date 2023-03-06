@@ -1,3 +1,4 @@
+require("dotenv").config() // dotenv  모듈
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const morgan = require("morgan")

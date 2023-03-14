@@ -37,7 +37,7 @@ module.exports = async (req, res, next) => {
     // jwt 검증
     try {
         const { nickname } = jwt.verify(authToken, process.env.Token_key)
-        const user = await User.findOne({nickname})
+        const user = await User.findOne({nickname}).select('userId nickname')
         res.locals.user = user
 
         next() // 다음 미들웨어로

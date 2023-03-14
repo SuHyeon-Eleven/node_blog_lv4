@@ -4,6 +4,8 @@ const Posts = require('../schemas/post.js')
 const Users = require('../schemas/user')
 const authMiddleware = require('../middlewares/auth-middleware')
 
+
+
 // 전체 게시글 조회
 router.get('/', async (req, res) => {
     try {

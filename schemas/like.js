@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const { INTEGER } = require('sequelize');
 
-const postSchema = new mongoose.Schema({
-    postId: {
+const likeSchema = new mongoose.Schema({
+    likeId: {
         type: mongoose.Types.ObjectId,
         default: mongoose.Types.ObjectId,
         unique: true,
@@ -13,13 +12,10 @@ const postSchema = new mongoose.Schema({
         default: mongoose.Types.ObjectId,
         require: true
     },
-    nickname: {
-        type: String,
-        required: true,
-    },
-    title: {
-        type: String,
-        required: true,
+    postId: {
+        type: mongoose.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+        require: true
     },
     createdAt: {
         type: Date,
@@ -30,14 +26,8 @@ const postSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now,
-    },
-    content: {
-        type: String,
-    },
-    likes: {
-        type: Number,
-        default: 0
     }
+    
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Like', likeSchema);

@@ -1,5 +1,10 @@
-# node_blog_basic
-basic node blog 
+# node_blog_basic LV4
+
+## 실행방법
+```shell
+npm install
+npx nodemon app.js
+```
 
 
 ## 라이브러리
